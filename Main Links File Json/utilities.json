@@ -1,7 +1,7 @@
 [
   {
     "Name": "Ghost Typer",
-    "Link": "https://raw.githubusercontent.com/NotNahid/powershell/refs/heads/main/Ghost%20Typer.ps1",
+    "Link": "https://raw.githubusercontent.com/NotNahid/powershell/refs/heads/main/type-pro.ps1",
     "Desc": "Auto-type text anywhere",
     "Category": "Automation",
     "Tags": ["typing", "automation", "productivity"]
