@@ -422,11 +422,6 @@ $queuePanel.Add_Resize({
 
 $mainLayout.Controls.Add($queuePanel, 0, 0)
 
-# Drag & Drop
-$grid.AllowDrop = $true
-$grid.Add_DragEnter({ param($s, $e)
-    if ($e.Data.GetDataPresent([Windows.Forms.DataFormats]::FileDrop)) { $e.Effect = "Copy" }
-})
 
 # ---------------------------
 # FFprobe / Media Info
@@ -492,20 +487,6 @@ function Add-FileToQueue {
 
     $lblQueueCount.Text = "($($grid.Rows.Count) files)"
 }
-
-$grid.Add_DragDrop({ param($s, $e)
-    $files = $e.Data.GetData([Windows.Forms.DataFormats]::FileDrop)
-    foreach ($f in $files) {
-        if (Test-Path $f -PathType Container) {
-            Get-ChildItem $f -Recurse -File -Include *.mp4,*.mkv,*.avi,*.mov,*.wmv,*.flv,*.webm,*.mp3,*.wav,*.flac | ForEach-Object {
-                Add-FileToQueue $_.FullName
-            }
-        } else {
-            Add-FileToQueue $f
-        }
-    }
-    Log "Added files via drag and drop" "success"
-})
 
 # Click on row to show preview
 $grid.Add_SelectionChanged({
