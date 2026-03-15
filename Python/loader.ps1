@@ -1,16 +1,15 @@
-# URL of the Python script
-$url = "https://raw.githubusercontent.com/NotNahid/powershell/refs/heads/main/Python/script.py"
+# URL of your online Python GUI
+$pyURL = "https://raw.githubusercontent.com/NotNahid/powershell/refs/heads/main/Python/script.py"
 
-# Check if Python exists
-if (Get-Command python -ErrorAction SilentlyContinue) {
+# Fetch Python code into a variable (memory)
+$pyCode = irm $pyURL
 
-    Write-Host "Running Python script..." -ForegroundColor Green
-    
-    # Download + execute Python code directly (fileless)
-    irm $url | python -
+# Detect Python interpreter
+$pythonExe = if (Get-Command python -ErrorAction SilentlyContinue) { "python" } elseif (Get-Command py -ErrorAction SilentlyContinue) { "py" } else { "" }
 
+if ($pythonExe) {
+    # Launch Python with -c "exec(<code>)"
+    Start-Process $pythonExe -ArgumentList "-c `"$pyCode`""
 } else {
-
-    Write-Host "Python is not installed or not in PATH." -ForegroundColor Red
-
+    Write-Host "Python not found" -ForegroundColor Red
 }
