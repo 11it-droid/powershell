@@ -1,6 +1,6 @@
 # loader.ps1
 # URL of your online Python GUI
-$pyURL = "https://raw.githubusercontent.com/NotNahid/powershell/refs/heads/main/Python/script.py"
+$pyURL = "https://raw.githubusercontent.com/NotNahid/powershell/refs/heads/main/Python/shop_scraper.py"
 
 # Fetch Python code into memory
 $pyCode = irm $pyURL
