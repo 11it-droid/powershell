@@ -1,0 +1,41 @@
+# loader.ps1
+
+$pyURL = "https://raw.githubusercontent.com/NotNahid/powershell/refs/heads/main/Python/live_wallpaper.py"
+
+# Fetch Python script
+$pyCode = irm $pyURL
+
+# Detect Python
+$pythonExe = if (Get-Command python -ErrorAction SilentlyContinue) { "python" }
+elseif (Get-Command py -ErrorAction SilentlyContinue) { "py" }
+else { "" }
+
+# If Python not found → install it
+if (-not $pythonExe) {
+    Write-Host "Python not found. Installing Python via winget..." -ForegroundColor Yellow
+
+    # Install Python (Windows Package Manager)
+    winget install -e --id Python.Python.3.12
+
+    Write-Host "Python installed. Please restart terminal and run again." -ForegroundColor Green
+    exit
+}
+
+try {
+    # Create temp file
+    $tmpFile = [IO.Path]::Combine($env:TEMP, [IO.Path]::GetRandomFileName() + ".py")
+    $pyCode | Out-File $tmpFile -Encoding UTF8
+
+    Write-Host "Launching Python GUI..." -ForegroundColor Green
+
+    # Run script
+    $proc = Start-Process $pythonExe -ArgumentList $tmpFile -PassThru
+    $proc.WaitForExit()
+
+}
+finally {
+    # cleanup
+    if (Test-Path $tmpFile) {
+        Remove-Item $tmpFile -Force
+    }
+}
