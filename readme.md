@@ -95,6 +95,10 @@ Got a small utility you think belongs here? Open a PR adding the script plus an 
 - Website: [nahid.rf.gd](https://nahid.rf.gd/)
 - Email: nahidul.live@gmail.com
 
+## 🐞 Known Issues
+
+Some tools have a bug where they don't close properly when you hit the close/exit button — being worked on. Until it's fixed, if a tool won't close, open **Task Manager** (`Ctrl+Shift+Esc`), find the process, and click **End Task**.
+
 ## ⚠️ Disclaimer
 
 These are personal utility scripts shared as-is. Review any script before running it on a machine you care about, especially since the dashboard's whole model is "download and execute remote code." No warranty, no guarantees — just tools that made my own workflow easier.
